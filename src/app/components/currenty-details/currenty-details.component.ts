@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+//import 'rxjs/add/operator/filter';
 import { ActivatedRoute } from '@angular/router';
+import { Currenty } from 'src/app/models';
 
 @Component({
   selector: 'app-currenty-details',
@@ -9,22 +10,16 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CurrentyDetailsComponent implements OnInit {
 
-  constructor() { }
+  id: string;
+  currentySelected: Currenty;
+  constructor(private _route: ActivatedRoute) { }
 
-
-
-  // private loadPostDetails(): void {
-  //   this.route.params.subscribe(params => {
-  //     const id = +params['id'];
-  //     this.contactService.getContact(id)
-  //       .then(contact => {
-  //         this.isLoading = false;
-  //         this.contact = contact;
-  //     });
-  //   });
-  // }
 
   ngOnInit() {
+    this.id = this._route.snapshot.params['id'];
+    this.currentySelected = JSON.parse(localStorage.getItem("currentySelect"));
+    console.log(this.currentySelected);
+    console.log(this.id);
   }
 
 }

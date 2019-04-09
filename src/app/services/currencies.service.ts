@@ -16,7 +16,7 @@ export class CurrenciesService {
 
 
   getCurrencies() : Observable<Currencies> {
-    console.log(API_URL);
+    // console.log(API_URL);
     return this._httpClient
     .get<Currencies>(API_URL)
     .pipe(

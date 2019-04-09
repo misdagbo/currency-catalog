@@ -1,6 +1,4 @@
 import { Component, OnInit, Input, HostListener } from '@angular/core';
-import { Currenty, Currencies } from 'src/app/models';
-import { CurrenciesService } from 'src/app/services/currencies.service';
 
 @Component({
   selector: 'app-home',
@@ -9,23 +7,14 @@ import { CurrenciesService } from 'src/app/services/currencies.service';
 })
 export class HomeComponent implements OnInit {
 
-  currentySelected: boolean = false;
 
-  @Input() title: string = "";
 
-  currencies: Currencies;
+  @Input() title: string = "Availabe currencies";
 
-  constructor(private _service: CurrenciesService) { }
 
-// selectPost(post : Posts) {
-//   this.postSelected = true;
-//   this._route.
-// }
+  constructor() { }
 
 ngOnInit() {
-  this._service.getCurrencies().subscribe(
-    data => this.currencies= data
-  );
 }
 
 }

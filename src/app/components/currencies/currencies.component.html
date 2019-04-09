@@ -1,3 +1,12 @@
-<p>
-  currencies works!
-</p>
+
+<div *ngIf="currencies" class="currencies">
+
+    <div *ngFor="let currenty of currencies.currencies">
+      <!-- <h1>{{currenty.id}}</h1> -->
+    <a class="currenty" (click)="selectCurrency(currenty)">
+      ID : {{currenty.id}}
+      Type : {{currenty.attributes.currency_type}}
+      Symbol : {{currenty.attributes.symbol}}
+    </a>
+    </div>
+  </div>
