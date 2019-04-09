@@ -1,7 +1,16 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule} from '@angular/router';
+
+import {
+HomeComponent,
+CurrentyDetailsComponent,
+PageNotFoundComponent
+} from './components';
 
 const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'currenty/:id', component: CurrentyDetailsComponent },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
@@ -9,4 +18,4 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: []
 })
-export class RoutingModule { }
+export class AppRoutingModule { }

@@ -1,0 +1,11 @@
+<div *ngIf="currencies" class="currencies">
+
+  <div *ngFor="let currenty of currencies.currencies">
+    <!-- <h1>{{currenty.id}}</h1> -->
+  <div>
+    ID : {{currenty.id}}
+    Type : {{currenty.attributes.currency_type}}
+    Symbol : {{currenty.attributes.symbol}}
+  </div>
+  </div>
+</div>
