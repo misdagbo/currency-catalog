@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './components/home/home.component';
 import { CurrenciesComponent } from './components/currencies/currencies.component';
 import { CurrentyDetailsComponent } from './components/currenty-details/currenty-details.component';
-import { PaginationComponent } from './components/pagination/pagination.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
@@ -20,7 +19,6 @@ import { CounterDirective } from './directives';
     HomeComponent,
     CurrenciesComponent,
     CurrentyDetailsComponent,
-    PaginationComponent,
     FilterComponent,
     PageNotFoundComponent,
     CounterDirective

@@ -3,26 +3,32 @@
 
     <div *ngFor="let currenty of currentiesPage">
       <!-- <h1>{{currenty.id}}</h1> -->
-    <a class="currenty" (click)="selectCurrency(currenty)">
-      ID : {{currenty.id}}
-      Type : {{currenty.attributes.currency_type}}
-      Symbol : {{currenty.attributes.symbol}}
-    </a>
+
+      <div class="row">
+        <div class="col-6">
+            <div class="card bg-light text-dark" (click)="selectCurrency(currenty)">
+                <div class="card-title">
+                    ID : {{currenty.id}}
+                    Type : {{currenty.attributes.currency_type}}
+                    Symbol : {{currenty.attributes.symbol}}
+
+                </div>
+              </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- <app-pagination></app-pagination> -->
-
-
   <div class="form-inline float-left mr-1">
     <select class="form-control" [value]="currenciesPerPage"  (change)="changePageSize($event.target.value)">
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="6">6</option>
-      <option value="8">8</option>
+      <option value="5">5 per page</option>
+      <option value="10">10 per page</option>
+      <option value="20">20 per page</option>
+      <option value="50">50 per page</option>
+      <option value="100">100 per page</option>
     </select>
   </div>
-  <div *ngIf="pageCount" class="btn-group float-right">
+  <div *ngIf="currencies" class="btn-group">
       <button *counter="let page of pageCount" (click)="changePage(page)"  class="btn btn-outline-primary" [class.active]="page == selectedPage"> {{page}} </button>
     <!-- <button  *ngFor="let page of pageNumbers" (click)="changePage(page)" class="btn btn-outline-primary" [class.active]="page == selectedPage"> {{page}}</button> -->
   </div>
