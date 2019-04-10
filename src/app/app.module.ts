@@ -12,6 +12,7 @@ import { FilterComponent } from './components/filter/filter.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 import {HttpClientModule} from '@angular/common/http';
+import { CounterDirective } from './directives';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {HttpClientModule} from '@angular/common/http';
     CurrentyDetailsComponent,
     PaginationComponent,
     FilterComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    CounterDirective
   ],
   imports: [
     BrowserModule,

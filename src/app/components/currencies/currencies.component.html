@@ -1,7 +1,7 @@
 
 <div *ngIf="currencies" class="currencies">
 
-    <div *ngFor="let currenty of currencies.currencies">
+    <div *ngFor="let currenty of currentiesPage">
       <!-- <h1>{{currenty.id}}</h1> -->
     <a class="currenty" (click)="selectCurrency(currenty)">
       ID : {{currenty.id}}
@@ -9,4 +9,20 @@
       Symbol : {{currenty.attributes.symbol}}
     </a>
     </div>
+  </div>
+
+  <!-- <app-pagination></app-pagination> -->
+
+
+  <div class="form-inline float-left mr-1">
+    <select class="form-control" [value]="currenciesPerPage"  (change)="changePageSize($event.target.value)">
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="6">6</option>
+      <option value="8">8</option>
+    </select>
+  </div>
+  <div *ngIf="pageCount" class="btn-group float-right">
+      <button *counter="let page of pageCount" (click)="changePage(page)"  class="btn btn-outline-primary" [class.active]="page == selectedPage"> {{page}} </button>
+    <!-- <button  *ngFor="let page of pageNumbers" (click)="changePage(page)" class="btn btn-outline-primary" [class.active]="page == selectedPage"> {{page}}</button> -->
   </div>

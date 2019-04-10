@@ -9,7 +9,7 @@ export class HomeComponent implements OnInit {
 
 
 
-  @Input() title: string = "Availabe currencies";
+title: string = "Availabe currencies";
 
 
   constructor() { }

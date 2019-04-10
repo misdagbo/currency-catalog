@@ -11,7 +11,41 @@ import { CurrenciesService } from 'src/app/services/currencies.service';
 export class CurrenciesComponent implements OnInit {
   currentySelected: boolean = false;
 
+
   currencies: Currencies;
+
+
+  public currenciesPerPage = 2;
+  public selectedPage = 1;
+  public selectedCategory = null;
+
+  get currentiesPage(): Currenty[] {
+    let pageIndex = (this.selectedPage - 1) * this.currenciesPerPage ;
+    return this.currencies.currencies
+    .slice(pageIndex, pageIndex + this.currenciesPerPage);
+  };
+
+
+  changePage(newPage: number) {
+    this.selectedPage = newPage;
+  }
+
+  changePageSize(newSize: number) {
+    this.currenciesPerPage = Number(newSize);
+    this.changePage(1);
+  }
+
+  get pageCount(): number {
+    return Math.ceil(this.currencies.currencies.length / this.currenciesPerPage);
+  }
+
+  // get pageNumbers(): number[] {
+  //   return Array(Math.ceil(this.currencies.currencies.length / this.currenciesPerPage)).fill(0).map((x, i) => i + 1);
+  // }
+
+
+
+
 
 
   constructor(private _service: CurrenciesService, private _router : Router) { }
