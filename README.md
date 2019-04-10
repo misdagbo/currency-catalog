@@ -1,4 +1,6 @@
-# CurrencyCatalog
+# currency-catalog
+An application that displays currencies | This kata aims to evaluate our Angular knowledge by developing a small application.
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.3.
 
