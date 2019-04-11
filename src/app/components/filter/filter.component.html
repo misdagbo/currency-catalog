@@ -1,3 +1,19 @@
-<p>
-  filter works!
-</p>
+<div class="row">
+
+
+  <div class="col-md-3">
+      <!-- <input class="form-control" [(ngModel)]="searchInput" (keyup)="onSearch()" placeholder="Search.."> -->
+      <input class="form-control"  [(ngModel)]="searchInput"  (keyup)="onSearch()" placeholder="Search..">
+  </div>
+  <div class="col-md-3">
+      <select (change)="onFilter()" [(ngModel)]="filter" class="form-control">
+          <option value="">Filter By ..</option>
+          <option value="id">ID</option>
+          <option value="code">CODE</option>
+          <option value="name">NAME</option>
+          <option value="currency_type">TYPE</option>
+        </select>
+  </div>
+</div>
+
+<br>

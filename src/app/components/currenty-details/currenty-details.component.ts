@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 //import 'rxjs/add/operator/filter';
 import { ActivatedRoute } from '@angular/router';
-import { Currenty } from 'src/app/models';
+import { Currenty, Attributes } from 'src/app/models';
+import { CurrenciesService } from 'src/app/services';
 
 @Component({
   selector: 'app-currenty-details',
@@ -12,14 +13,14 @@ export class CurrentyDetailsComponent implements OnInit {
 
   id: string;
   currentySelected: Currenty;
-  constructor(private _route: ActivatedRoute) { }
+  constructor(private _route: ActivatedRoute, private _service : CurrenciesService) { }
 
 
   ngOnInit() {
     this.id = this._route.snapshot.params['id'];
-    this.currentySelected = JSON.parse(localStorage.getItem("currentySelect"));
-    console.log(this.currentySelected);
-    console.log(this.id);
-  }
 
+    this._service.getCurrencies().subscribe(
+      data => this.currentySelected = data.currencies.filter(currency => currency.id.toLowerCase() === this.id.toLowerCase())[0]
+    );
+  }
 }

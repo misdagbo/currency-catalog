@@ -1,5 +1,5 @@
 <h1> {{id}} </h1>
-<div>
+<div *ngIf="currentySelected">
     <ul>
       <li> code : {{currentySelected.attributes.code}} </li>
       <li> name : {{currentySelected.attributes.name}} </li>

@@ -1,9 +1,11 @@
 
+<app-filter (onChangeSearch)="setSearch($event)"  (onChangeFilter)="setFilter($event)" [searchInput]="searchInput" [filter]="filter"></app-filter>
+
+
+
 <div *ngIf="currencies" class="currencies">
 
-    <div *ngFor="let currenty of currentiesPage">
-      <!-- <h1>{{currenty.id}}</h1> -->
-
+    <div *ngFor="let currenty of currentiesPage" (change)="setPage()">
       <div class="row">
         <div class="col-6">
             <div class="card bg-light text-dark" (click)="selectCurrency(currenty)">
@@ -19,16 +21,4 @@
     </div>
   </div>
 
-  <div class="form-inline float-left mr-1">
-    <select class="form-control" [value]="currenciesPerPage"  (change)="changePageSize($event.target.value)">
-      <option value="5">5 per page</option>
-      <option value="10">10 per page</option>
-      <option value="20">20 per page</option>
-      <option value="50">50 per page</option>
-      <option value="100">100 per page</option>
-    </select>
-  </div>
-  <div *ngIf="currencies" class="btn-group">
-      <button *counter="let page of pageCount" (click)="changePage(page)"  class="btn btn-outline-primary" [class.active]="page == selectedPage"> {{page}} </button>
-    <!-- <button  *ngFor="let page of pageNumbers" (click)="changePage(page)" class="btn btn-outline-primary" [class.active]="page == selectedPage"> {{page}}</button> -->
-  </div>
+  <app-pagination  [currencies]="currencies" [currentiesPage]="currentiesPage" [selectedPage]= "selectedPage" [currenciesPerPage]="currenciesPerPage" (changePage)="goToPage($event)"></app-pagination>

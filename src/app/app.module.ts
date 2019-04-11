@@ -9,9 +9,11 @@ import { CurrenciesComponent } from './components/currencies/currencies.componen
 import { CurrentyDetailsComponent } from './components/currenty-details/currenty-details.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { FormsModule } from '@angular/forms';
 
 import {HttpClientModule} from '@angular/common/http';
 import { CounterDirective } from './directives';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -21,12 +23,14 @@ import { CounterDirective } from './directives';
     CurrentyDetailsComponent,
     FilterComponent,
     PageNotFoundComponent,
-    CounterDirective
+    CounterDirective,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
