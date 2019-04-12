@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, HostListener, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
-import { Currenty, Currencies } from 'src/app/models';
+import { Currenty, Currencies, CurrentyList } from 'src/app/models';
 import { CurrenciesService } from 'src/app/services/currencies.service';
 import { Observable } from 'rxjs';
 
@@ -10,88 +10,79 @@ import { Observable } from 'rxjs';
   styleUrls: ['./currencies.component.css']
 })
 export class CurrenciesComponent implements OnInit {
-  currentySelected: boolean = false;
 
 
-  currencies: Currenty[];
-  public currenciesPerPage = 5;
-  public selectedPage = 1;
+  private currencies: Currenty[];
+  public currentiesPage: Currenty[];
+  public id: string;
+  private selectedPage : number;
+  private currenciesPerPage: number;
+  public total: number;
+  private searchInput: string;
+  private filter: string;
+  public currentySelected: boolean = false;
 
-  currentiesPage: Currenty[];
 
-
-  searchInput: string;
-  filter: string;
-  currentPage: number;
-  pageSize: number;
-  total: number;
 
 
   constructor(private _service: CurrenciesService, private _router: Router) {
-
-  }
-
-  goToPage(n: number): void {
-    this.selectedPage = n;
-    this.currencies = this.chargeCurrencies();
-    this.getCurrencies();
-  };
-
-
-  chargeCurrencies(): Currenty[] {
-    let currencies: Currenty[];
-    this._service.getCurrencies().subscribe(
-      data => currencies = data.currencies
-    );
-    return currencies;
+    this.selectedPage = 1;
+    this.currenciesPerPage = 5;
+    this.searchInput = "";
+    this.filter = "";
   }
 
 
-  search() {
-    let currenciesObjects: Observable<Currenty[]> = this._service.getFilterCurrencies(this.searchInput, this.filter);
-    currenciesObjects.subscribe(currencyList => {
-      this.currencies = currencyList;
-      console.log("Currencies after filter : ", this.currencies);
-      this.currentiesPage;
+  public search = () => {
+    let currenciesObs = this._service.getFilterCurrencies(this.selectedPage, this.currenciesPerPage, this.searchInput, this.filter, this.currencies);
+    currenciesObs.subscribe((currencyList: CurrentyList) => {
+      this.currentiesPage = currencyList.currencies;
+      this.total = this.currencies.length;
     });
+  }
+
+
+  public setFilter = (filter : string) => {
+    this.filter = filter;
+    this.search();
   };
 
-
-
-  setFilter(filter) {
-    this.filter = filter;
-    console.log("filter : ", this.filter);
-    this.search();
-  }
-
-  setSearch(search) {
+  public setSearch = (search :string) => {
     this.searchInput = search;
-    console.log("searchInput", this.searchInput);
     this.search();
-  }
+  };
 
-  setPage() {
-    this.getCurrencies();
-  }
-
-
-  selectCurrency(currenty: Currenty) {
+  public selectCurrency = (currenty: Currenty) => {
     this.currentySelected = true;
     this._router.navigate(['currenty', currenty.id]);
-  }
+  };
 
-  getCurrencies (){
+
+
+  public getCurrencies = () => {
     this._service.getCurrencies().subscribe(
       data => {
         this.currencies = data.currencies;
-        let pageIndex = (this.selectedPage - 1) * this.currenciesPerPage;
-        this.currentiesPage = this.currencies.slice(pageIndex, pageIndex + this.currenciesPerPage);
+        let currenciesObs = this._service.getFilterCurrencies(this.selectedPage, this.currenciesPerPage, this.searchInput, this.filter, this.currencies);
+        currenciesObs.subscribe((currencyList: CurrentyList) => {
+          this.currentiesPage = currencyList.currencies;
+          this.total = currencyList.total;
+
+        });
       }
     );
-  }
+  };
+
+  public onChangeSize = () => {
+    this.selectedPage = 1;
+    let currenciesObs = this._service.getFilterCurrencies(this.selectedPage, this.currenciesPerPage, this.searchInput, this.filter, this.currencies);
+    currenciesObs.subscribe((currencyList: CurrentyList) => {
+      this.currentiesPage = currencyList.currencies;
+      this.total = this.currencies.length;
+    });
+  };
 
   ngOnInit() {
-
     this.getCurrencies();
   }
 

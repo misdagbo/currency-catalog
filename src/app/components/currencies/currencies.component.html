@@ -1,24 +1,35 @@
+<div class="container">
+
 
 <app-filter (onChangeSearch)="setSearch($event)"  (onChangeFilter)="setFilter($event)" [searchInput]="searchInput" [filter]="filter"></app-filter>
 
+<div *ngIf="currentiesPage" class="currencies">
 
-
-<div *ngIf="currencies" class="currencies">
-
-    <div *ngFor="let currenty of currentiesPage" (change)="setPage()">
-      <div class="row">
-        <div class="col-6">
-            <div class="card bg-light text-dark" (click)="selectCurrency(currenty)">
-                <div class="card-title">
-                    ID : {{currenty.id}}
-                    Type : {{currenty.attributes.currency_type}}
-                    Symbol : {{currenty.attributes.symbol}}
-
+    <div class="row">
+        <div class="col-md-3 col-xs-6" *ngFor="let currenty of currentiesPage">
+           <a (click)="selectCurrency(currenty)">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"> {{currenty.id}}</h5>
+                    <p class="card-text"> {{currenty.attributes.name}}</p>
                 </div>
-              </div>
+            </div>
+          </a>
         </div>
-      </div>
     </div>
-  </div>
 
-  <app-pagination  [currencies]="currencies" [currentiesPage]="currentiesPage" [selectedPage]= "selectedPage" [currenciesPerPage]="currenciesPerPage" (changePage)="goToPage($event)"></app-pagination>
+  <div class="row">
+      <div class="col-md-3 text-left float-left">
+        <select (change)="onChangeSize()" [(ngModel)]="currenciesPerPage" class="form-control">
+          <option value="5">5 per page</option>
+          <option value="10">10 per page</option>
+          <option value="20">20 per page</option>
+          <option value="50">50 per page</option>
+          <option value="100">100 per page</option>
+        </select>
+      </div>
+      <div class="col-md-6 text-right float-left">
+          <ngb-pagination [(collectionSize)]="total" [(page)]="selectedPage" [(pageSize)]="currenciesPerPage" [maxSize]="5" [boundaryLinks]="true" [rotate]="true" [ellipses]="false" (pageChange)="search()"></ngb-pagination>
+      </div>
+  </div>
+</div>

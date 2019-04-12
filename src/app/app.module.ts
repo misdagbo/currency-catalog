@@ -10,10 +10,9 @@ import { CurrentyDetailsComponent } from './components/currenty-details/currenty
 import { FilterComponent } from './components/filter/filter.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { FormsModule } from '@angular/forms';
-
+import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClientModule} from '@angular/common/http';
 import { CounterDirective } from './directives';
-import { PaginationComponent } from './components/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -23,14 +22,14 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     CurrentyDetailsComponent,
     FilterComponent,
     PageNotFoundComponent,
-    CounterDirective,
-    PaginationComponent
+    CounterDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

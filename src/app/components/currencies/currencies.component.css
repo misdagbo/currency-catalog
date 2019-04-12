@@ -1,3 +1,9 @@
-.currenty{
-  border : 2px solid black;
+
+.card {
+  margin-bottom: 15px;
+  min-height: 100px;
+}
+
+.pagination {
+  float: right !important;
 }

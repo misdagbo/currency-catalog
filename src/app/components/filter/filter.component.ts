@@ -7,16 +7,14 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class FilterComponent implements OnInit {
 
-  @Input() searchInput: string;
-  @Input() filter: string;
-  @Output() onChangeSearch = new EventEmitter<any>();
-  @Output() onChangeFilter = new EventEmitter<any>();
+  @Input() private searchInput: string;
+  @Input() private filter: string;
+  @Output() private onChangeSearch = new EventEmitter<any>();
+  @Output() private onChangeFilter = new EventEmitter<any>();
 
   constructor() { }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   onSearch() {
     this.onChangeSearch.emit(this.searchInput);

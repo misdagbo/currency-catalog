@@ -11,16 +11,16 @@ import { CurrenciesService } from 'src/app/services';
 })
 export class CurrentyDetailsComponent implements OnInit {
 
-  id: string;
-  currentySelected: Currenty;
+  private id: string;
+  public currentySelected: Currenty;
+
   constructor(private _route: ActivatedRoute, private _service : CurrenciesService) { }
 
 
   ngOnInit() {
     this.id = this._route.snapshot.params['id'];
-
     this._service.getCurrencies().subscribe(
-      data => this.currentySelected = data.currencies.filter(currency => currency.id.toLowerCase() === this.id.toLowerCase())[0]
+      data => this.currentySelected = data.currencies.filter((currency : Currenty) => currency.id.toLowerCase() === this.id.toLowerCase())[0]
     );
   }
 }

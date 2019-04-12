@@ -2,10 +2,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map, tap, filter } from 'rxjs/operators';
-import { Currenty, Currencies } from '../models';
+import { tap } from 'rxjs/operators';
+import { Currenty, Currencies, CurrentyList } from '../models';
 import { environment } from '../../environments/environment';
-import { of } from 'rxjs';
 
 
 @Injectable({
@@ -13,10 +12,16 @@ import { of } from 'rxjs';
 })
 export class CurrenciesService {
 
+  private currentylist: CurrentyList = {
+    pageSize: 5,
+    total: null,
+    currencies: null
+  };
+
   constructor(private _httpClient: HttpClient) { }
 
 
-  getCurrencies(): Observable<Currencies> {
+  public getCurrencies(): Observable<Currencies> {
     return this._httpClient
       .get<Currencies>(environment.API_URL)
       .pipe(
@@ -24,51 +29,38 @@ export class CurrenciesService {
       )
   };
 
+  public getFilterCurrencies(page: number, pageSize: number, search: string, filter: string, currenciesAll: Currenty[]): Observable<CurrentyList> {
 
-  public getFilterCurrencies(search: string, filter: string): Observable<Currenty[]> {
-
-    let currencies: Currenty[];
-
-    this.getCurrencies()
-      .subscribe(
-        data => currencies = data.currencies
-      );
-
+    this.currentylist.currencies = currenciesAll;
+    this.currentylist.total = currenciesAll.length;
+    this.currentylist.pageSize = pageSize;
 
     if (filter != "" && search != "") {
       if (filter == 'id') {
-        let currenciesOthers: Currenty[] = currencies.filter(currency => currency.id.toLowerCase().includes(search.toLowerCase()));
-        currencies = currenciesOthers;
+        let currencies = this.currentylist.currencies.filter(currency => currency.id.toLowerCase().includes(search.toLowerCase()));
+        this.currentylist.currencies = currencies;
+        this.currentylist.total = currencies.length;
 
       } else {
-        let currenciesOthers: Currenty[] = currencies.filter(obj => {
+        let currencies = this.currentylist.currencies.filter(obj => {
           return obj.attributes[filter].toLowerCase().includes(search.toLowerCase())
-        });
-
-        currencies = currenciesOthers;
+        })
+        this.currentylist.currencies = currencies;
+        this.currentylist.total = currencies.length;
       }
-    };
+    }
 
-    let currencyObservable = new Observable<Currenty[]>(observer => {
+    this.currentylist.pageSize = pageSize;
+    let start = (page > 1) ? ((page - 1) * pageSize) : 0;
+    let end = start + pageSize;
+    this.currentylist.currencies = this.currentylist.currencies.slice(start, end);
+
+    const currencyObservable = new Observable<any>(observer => {
       setTimeout(() => {
-        observer.next(currencies);
+        observer.next(this.currentylist);
       }, 1000);
     });
     return currencyObservable;
-  }
-
-  getCurrentyById(id: string): Observable<Currenty> {
-    let currencies: Currenty[];
-
-    this.getCurrencies()
-      .subscribe(
-        data => currencies = data.currencies.filter(currency => currency.id.toLowerCase() === id.toLowerCase())
-      )
-
-    if (currencies.length) {
-      return of(currencies[0]);
-    }
-    return of(null);
-  }
+  };
 
 }

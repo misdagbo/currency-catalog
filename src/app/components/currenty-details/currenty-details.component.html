@@ -1,14 +1,21 @@
-<h1> {{id}} </h1>
-<div *ngIf="currentySelected">
-    <ul>
-      <li> code : {{currentySelected.attributes.code}} </li>
-      <li> name : {{currentySelected.attributes.name}} </li>
-      <li> category : {{currentySelected.attributes.category}} </li>
-      <li> code_iso_alpha3 : {{currentySelected.attributes.code_iso_alpha3}} </li>
-      <li> code_iso_numeric3 : {{currentySelected.attributes.code_iso_numeric3}} </li>
-      <li> native_symbol : {{currentySelected.attributes.native_symbol}} </li>
-      <li> symbol : {{currentySelected.attributes.symbol}} </li>
 
-    </ul>
+<div class="container">
+        <div class="row" *ngIf="currentySelected">
+          <div class="card">
+              <h5 class="card-header">{{id}}</h5>
+              <div class="card-body">
+                <p class="card-text"><b>Code :</b> {{currentySelected.attributes.code}}</p>
+                <p class="card-text"><b>Name :</b> {{currentySelected.attributes.name}}</p>
+                <p class="card-text"><b>Category :</b> {{currentySelected.attributes.category}}</p>
+                <p class="card-text"><b>Code ISO  Alpha 3 :</b> {{currentySelected.attributes.code_iso_alpha3}}</p>
+                <p class="card-text"><b>Code ISO Numeric 3 :</b> {{currentySelected.attributes.code_iso_numeric3}}</p>
+                <p class="card-text"><b>Native symbol :</b> {{currentySelected.attributes.native_symbol}}</p>
+                <p class="card-text"><b>Currency type : </b> {{currentySelected.attributes.currency_type}}</p>
 
+                <a routerLink="/currencies" class="btn btn-warning">Go Back</a>
+              </div>
+            </div>
+        </div>
 </div>
+
+

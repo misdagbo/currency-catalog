@@ -1,5 +1,4 @@
 export interface Attributes {
-
   code?: string;
   name?: string;
   currency_type?: string;

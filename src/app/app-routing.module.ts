@@ -9,6 +9,7 @@ PageNotFoundComponent
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'currencies', component: HomeComponent },
   { path: 'currenty/:id', component: CurrentyDetailsComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
